@@ -1,0 +1,18 @@
+<div class="card"  >
+  <a routerLink="['products/',product.key,product.title]"> <img class="card-img-top" [src]="product.imageUrl" *ngIf="product?.imageUrl"> </a>
+  <div class="card-body">
+    <h3 class="card-title">{{ product.title }}</h3>
+    <p class="card-text">{{ product.price | currency}}</p>  
+  </div>
+  <div class="card-footer" *ngIf="showActions" >
+ 
+        <button 
+          *ngIf="(!shoppingCart || shoppingCart.getQuantity(product)===0); else updateQuantity"
+          (click)="addToCart(product)" type="button" class="btn btn-secondary btn-block">
+          Add to Cart
+        </button>
+        <ng-template #updateQuantity>
+          <product-quantity [product]="product" [shopping-cart]="shoppingCart"></product-quantity>
+        </ng-template> 
+  </div>
+</div>
